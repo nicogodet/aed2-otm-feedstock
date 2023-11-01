@@ -1,0 +1,32 @@
+diff --git a/Makefile b/Makefile
+index 712b415..8b51cb1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -47,7 +47,6 @@ else ifeq ($(F90),open95)
+   LIBS+=-L/opt/open64/lib -Wl,-rpath=/opt/open64/lib
+ else
+   F90=gfortran
+-  INCLUDES+=-I/usr/include
+   DEBUG_FFLAGS=-g -fbacktrace
+   OPT_FFLAGS=-O3
+   FFLAGS=-fPIC -Wall -ffree-line-length-none -std=f2003 $(DEFINES) $(INCLUDES) -fall-intrinsics -Wno-unused-dummy-argument -fno-range-check
+@@ -124,7 +123,7 @@ ${objdir}/aed2_common.o
+ 
+ all: libaed2.a
+ 
+-shared: libaed2.so
++shared: libaed2.dll
+ 
+ ${objdir}:
+ 	@mkdir ${objdir}
+@@ -133,7 +132,9 @@ libaed2.a: ${objdir} ${OBJS}
+ 	ar rv $@ ${OBJS}
+ 	ranlib $@
+ 
+-libaed2.so: ${objdir} ${OBJS}
++libaed2.dll: ${objdir} ${OBJS}
++	ar rv $@.a ${OBJS}
++	ranlib $@.a
+ 	$(F90) -shared $(FFLAGS) ${OBJS} -g -o $@
+ 
+ clean: ${objdir}

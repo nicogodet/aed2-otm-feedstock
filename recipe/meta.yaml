@@ -1,0 +1,31 @@
+{% set name = "aed2-otm" %}
+{% set version = "1.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: http://www.opentelemac.org/downloads/Installation%20files/Manual%20installation%20-%20Sources/aed2_1.2.tgz
+    sha256: 64a5ee1fedee37423cad6a880aea50324d7e2ea71e484d7d598fb38cd1abce76
+    patches:
+      - change-ext-shared-lib.patch
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - m2w64-toolchain
+
+
+about:
+  home: https://aquatic.science.uwa.edu.au/research/models/AED/
+  license: GPLv3
+  summary: "The Aquatic Ecodynamics Modelling Library"
+  doc_url: https://aquatic.science.uwa.edu.au/research/models/AED/
+  dev_url: https://github.com/AquaticEcoDynamics/libaed2
+
+extra:
+  recipe-maintainers:
+    - nicogodet
